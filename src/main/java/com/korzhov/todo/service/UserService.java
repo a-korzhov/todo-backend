@@ -44,6 +44,10 @@ public class UserService {
         .withImageData(storageService.getEncodedImage(user.getImageName()));
   }
 
+  public long getUsersCount() {
+    return userRepository.count();
+  }
+
   @Transactional
   public List<UserDto> patchUsers(JsonNode patchRequestBody) {
     Map<Long, PatchContainer<User>> idToUserContainerMap = parsePatchRequest(patchRequestBody);
