@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .anyRequest().authenticated()
         .and()
           .apply(jwtConfigurerAdapter());
-    http.requiresChannel().anyRequest().requiresInsecure();
+//    http.requiresChannel().anyRequest().requiresInsecure();
     // @formatter:on
   }
 

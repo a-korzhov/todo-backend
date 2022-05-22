@@ -19,12 +19,14 @@ public abstract class TaskMapper {
 
   @Mapping(target = "priority", expression = "java(TaskPriority.fromString(taskDto.getPriority()))")
   @Mapping(target = "status", expression = "java(TaskStatus.fromString(taskDto.getStatus()))")
+  @Mapping(target = "user", ignore = true)
   public abstract Task toEntity(CreateTaskRequest taskDto);
 
   public abstract TaskPatchRequest toPatchDto(Task task);
 
   @Mapping(target = "priority", expression = "java(TaskPriority.fromString(request.getPriority()))")
   @Mapping(target = "status", expression = "java(TaskStatus.fromString(request.getStatus()))")
+  @Mapping(target = "user", ignore = true)
   public abstract void patchFields(TaskPatchRequest request, @MappingTarget Task task);
 
 }
