@@ -9,8 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class UserPatchRequest {
 
-  String email;
-
   String phone;
 
 }

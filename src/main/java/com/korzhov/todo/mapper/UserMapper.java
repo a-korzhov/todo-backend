@@ -31,5 +31,6 @@ public abstract class UserMapper {
   @Mapping(target = "imageName", ignore = true)
   @Mapping(target = "lastLoggedInTime", ignore = true)
   @Mapping(target = "taskList", ignore = true)
+  @Mapping(target = "email", ignore = true)
   public abstract void patchFields(UserPatchRequest request, @MappingTarget User user);
 }
