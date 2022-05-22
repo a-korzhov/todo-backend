@@ -1,25 +1,33 @@
 package com.korzhov.todo.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 @Configuration
 public class CorsConfig {
 
-  @Bean
+  @Value("${client.base.url}")
+  private String clientUrl;
+
+  @Bean(name =  "corsFilterV1")
   public CorsFilter corsFilter() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration config = new CorsConfiguration();
+    config.addAllowedOriginPattern(clientUrl);
+    config.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
     config.setAllowCredentials(true);
-    config.addAllowedOriginPattern("*");
-    config.addExposedHeader("Authorization");
+    config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+    config.addExposedHeader("Location");
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
 
-    source.registerCorsConfiguration("/v1/**", config);
+    source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
   }
 

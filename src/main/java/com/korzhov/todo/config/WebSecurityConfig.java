@@ -4,7 +4,7 @@ import com.korzhov.todo.config.auth.handler.JwtAccessDeniedHandler;
 import com.korzhov.todo.config.auth.handler.JwtAuthenticationEntryPoint;
 import com.korzhov.todo.config.auth.jwt.JwtConfigurer;
 import com.korzhov.todo.config.auth.jwt.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,13 +19,24 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final JwtTokenProvider jwtTokenProvider;
   private final CorsFilter corsFilter;
   private final JwtAuthenticationEntryPoint authenticationEntryPoint;
   private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+  public WebSecurityConfig(
+      JwtTokenProvider jwtTokenProvider,
+      @Qualifier(value = "corsFilterV1") CorsFilter corsFilter,
+      JwtAuthenticationEntryPoint authenticationEntryPoint,
+      JwtAccessDeniedHandler jwtAccessDeniedHandler
+  ) {
+    this.jwtTokenProvider = jwtTokenProvider;
+    this.corsFilter = corsFilter;
+    this.authenticationEntryPoint = authenticationEntryPoint;
+    this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
