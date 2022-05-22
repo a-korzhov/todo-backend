@@ -22,8 +22,8 @@ public class CorsConfig {
     config.addAllowedOriginPattern(clientUrl);
     config.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
     config.setAllowCredentials(true);
-    config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-    config.addExposedHeader("Location");
+    config.setAllowedHeaders(List.of("Cache-Control", "Content-Type"));
+    config.addExposedHeader("Authorization");
     config.addAllowedHeader("*");
     config.addAllowedMethod("*");
 

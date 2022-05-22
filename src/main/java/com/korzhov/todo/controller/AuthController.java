@@ -67,7 +67,7 @@ public class AuthController {
     UserDto userDto = authService.authorizeUser(login);
     HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + userDto.getJwtToken());
-    log.info("Headers added...");
+    log.info("Headers added... {}", httpHeaders);
     return new ResponseEntity<>(
         userDto,
         httpHeaders,
